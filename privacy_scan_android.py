@@ -127,6 +127,15 @@ def take_screenshot(ser, fname=None):
     run_command(cmd, cli=thiscli(ser), fname=fname)
     
 
+def logcat(ser, fname=None):
+    """
+    Logcat to a file
+    """
+    if not fname:
+        fname = "tmp_logcat.log"
+    cmd = "{cli} logcat -d > '{fname}'"
+    run_command(cmd, cli=thiscli(ser), fname=fname)
+
 def wait(t):
     time.sleep(t)
 
@@ -136,6 +145,10 @@ def do_privacy_check(ser, command):
         return "<img height='400px' src='" + \
             url_for('static', filename='images/' + img) + "?{}'/>".format(rand if nocache else '')
     
+    def add_file(file, nocache=False):
+        rand = random.randint(0, 10000)
+        return "<p><iframe src='" + filename + "'></iframe></p>"
+
     command = command.lower()
     if command == "account": # 1. Account ownership  & 3. Sync (if present)
         open_activity(ser, "com.google.android.gms/com.google.android.gms.app.settings.GoogleSettingsLink")
@@ -172,6 +185,12 @@ def do_privacy_check(ser, command):
     elif command == "screenshot":
         take_screenshot(ser, fname="webstatic/images/tmp.png")
         return add_image("tmp.png", nocache=True)
+    
+    elif command == "logcat":
+        fname="tmp.log"
+        logcat(ser, fname=fname)
+        return add_file(fname, nocache=True)
+
     else:
         return "Command not supported; should be one of ['account', 'backup', 'gmap', 'gphotos'] (case in-sensitive)"
 
