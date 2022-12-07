@@ -172,6 +172,10 @@ def do_privacy_check(ser, command):
     elif command == "screenshot":
         take_screenshot(ser, fname="webstatic/images/tmp.png")
         return add_image("tmp.png", nocache=True)
+    elif command == "safetynet":
+        open_activity(ser, "com.google.android.gms/com.google.android.gms.safetynet.SafetyNetAttestationActivity")
+        return "Click on the <code>Attestation</code> button. " + add_image('safetynet.png')
+
     else:
         return "Command not supported; should be one of ['account', 'backup', 'gmap', 'gphotos'] (case in-sensitive)"
 

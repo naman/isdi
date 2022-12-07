@@ -28,7 +28,10 @@
             {% for k, v in  {"account": "Account", "sync": "Accounts and Sync", "backup": "Backup account", "gmap": "Google Map Sharing", "gphotos": "Google Photos Sharing"}.items() %}
             <button class="btn btn-primary mx-2"  onclick="get('/privacy/android/{{ k }}')" value="{{ k }}">{{ v | title }}</button>
             {% endfor %}
-            <button class="btn btn-secondary mx-2"  onclick="get('/privacy/android/screenshot')" value="screenshot">Screenshot</button>      
+            <button class="btn btn-secondary mx-2"  onclick="get('/privacy/android/screenshot')" value="screenshot">Screenshot</button>
+
+            <button class="btn btn-secondary mx-2"  onclick="get('/privacy/android/safetynet')" value="safetynet">SafetyNet</button>
+
         </div>
         <div class="jumbotron" id="msg">
         </div>
